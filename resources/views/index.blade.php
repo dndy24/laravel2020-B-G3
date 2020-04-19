@@ -22,15 +22,13 @@
 		</div>
 	</form>
 </div>
-	<div class="col-md-1 text-right">
-	<a href="{{ action('DakiController@create') }}" class="btn btn-prymary">Tambah Data</a>
-	</div>
 </div>
 
 <form method="POST">
     @csrf
     @method('DELETE')
     <button formaction="/deleteall" type="submit" class="btn btn-danger">Delete All Selected</button>
+	<a href="{{ action('DakiController@create') }}" class="btn btn-primary">Tambah Data</a>
     <br/>
     <br/>
 <table class="table table-bordered">

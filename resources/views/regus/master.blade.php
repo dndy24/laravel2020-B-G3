@@ -41,7 +41,12 @@
     <div class="background">
     <div class="transbox">
     <nav class="navbar fixed-top bg-info">
-    <a class="navbar-brand" href="/pendakis">Regu Pendakian Gunung Slamet</a>
+    <a class="navbar-brand" href="/regus">Regu Pendakian Gunung Slamet</a>
+    <div style="margin: 15px; text-align: right;">
+        <a href="/daki"> Data Pendaki </a> ||
+        <a href="/jalurs"> Jalur Pendakian </a> ||
+        <a href="/perlengkapans"> Perlengkapan Regu </a>
+    </div>
     @yield('nav')
 </nav>
 <div class="container">

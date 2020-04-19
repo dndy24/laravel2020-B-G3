@@ -19,8 +19,7 @@
         <li><h3>Jumlah POS : {{ $regu->jalur->jumlah_pos }}</h3></li>
         <li><h3>Status : {{ $regu->jalur->status }}</h3></li>
       </ul>
-    </div>
-
-    <a class="btn btn-xs btn-danger" href="javascript:ajaxLoad('{{ url('regus') }}')">Back</a>
+    </div></br>
+    <a class="btn btn-xl btn-danger" href="javascript:ajaxLoad('{{ url('regus') }}')">Back</a></br></br>
   </div>
 </div>

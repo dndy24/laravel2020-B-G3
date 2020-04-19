@@ -92,7 +92,10 @@
         @endforeach
         </tbody>
     </table>
-        <ul class="pagination">
-            {{ $jalurs->links() }}
-        </ul>
+      Halaman : {{ $jalurs->currentPage() }} <br/>
+      Jumlah Data : {{ $jalurs->total() }} <br/>
+      Data Per Halaman : {{ $jalurs->perPage() }} <br/>
+<ul class="pagination">
+  {{ $jalurs->links() }}
+</ul>
 </div>

@@ -1,14 +1,14 @@
 > laravel2020-B-G3
 # Sistem Informasi Pendakian Gunung Slamet
 
-### Anggota Kelompok:
+### Anggota Kelompok :
 
 - 17090034 Dendy Jordan Wijaya
 - 17090051 Desi Ayu Purwono
 - 17090058 Hera
 - 17090122 Ianatul Khoeriyah
 
-#### Instalasi:
+#### Instalasi :
  1. Klik Clone or Download silahkan download zip
  2. Pindah kedalam folder /xampp/htdocs dan extrak 
  3. Buka _comandline_, arahkan ke folder projek dengan ketik
@@ -20,3 +20,8 @@
  8. Lalu ketik kembali php artisan migrate --seed
  9. Untuk menjalankan ketik php artisan serve
 
+### Catatan :
+- Untuk membuka/berpindah page dari page regus, jalurs, dan perlengkapans diwajibkan untuk menghapus kuki (cookies),
+  terlebih dahulu menggunakan shortkey Ctrl + Shift + Del kemudian Enter. Ini merupakan bug session, karena website
+  ini dibangun dari awal (native) dan tanpa template. Bug akan segera diperbaiki secepatnya setelah kelompok kami
+  menemukan solusinya. Mohon pengertiannya, terimakasih~

@@ -35,10 +35,11 @@
         <div class="form-group row">
             <div class="col-md-3 col-lg-2"></div>
             <div class="col-md-4">
-                <a href="javascript:ajaxLoad('{{url('regus')}}')" class="btn btn-danger btn-xs">
+                <a href="javascript:ajaxLoad('{{url('regus')}}')" class="btn btn-danger btn-xl">
                     Back</a>
-                {!! Form::button("Save",["type" => "submit","class"=>"btn btn-primary btn-xs"])!!}
+                {!! Form::button("Save",["type" => "submit","class"=>"btn btn-primary btn-xl"])!!}
             </div>
+            </br></br></br></br></br></br></br></br></br></br></br></br></br></br>
         </div>
         {!! Form::close() !!}
     </div>

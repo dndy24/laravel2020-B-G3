@@ -1,5 +1,4 @@
 <div class="container">
-
     <div class="row">
         <div class="col-sm-7">
           <h3>Pendataan Perlengkapan Regu Pendakian Gunung Slamet</h3>
@@ -79,6 +78,9 @@
         @endforeach
         </tbody>
     </table>
+    Halaman : {{ $perlengkapans->currentPage() }} <br/>
+    Jumlah Data : {{ $perlengkapans->total() }} <br/>
+    Data Per Halaman : {{ $perlengkapans->perPage() }} <br/>
         <ul class="pagination">
             {{ $perlengkapans->links() }}
         </ul>

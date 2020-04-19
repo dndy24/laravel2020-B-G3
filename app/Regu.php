@@ -12,4 +12,8 @@ class Regu extends Model
 	public function jalur(){
 		return $this->belongsTo("App\Jalur", "jalur_id");
 	}
+
+	public function perlengkapans(){
+    	return $this->hasMany("App\Perlengkapans");
+    }
 }

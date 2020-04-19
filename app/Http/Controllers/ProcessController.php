@@ -29,7 +29,7 @@ class ProcessController extends Controller
     //show homepage
     public function homepage()
     {
-        return view('pages.home');
+        return view('home');
     }
 
     /**
