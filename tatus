@@ -1,0 +1,233 @@
+[33mcommit 1519ad11dbd2996341bcdb38c688b9d16aed36e3[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;32mbackup[m[33m)[m
+Author: ianatulkh <ianatulkhoeriyah31@gmail.com>
+Date:   Wed Apr 15 03:39:36 2020 -1200
+
+    fix regu relationship
+
+[33mcommit 93b0c2c15b8d7412644f4cc742bcd2be4c9561dd[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 22:22:34 2020 -1200
+
+    Update master.blade.php
+
+[33mcommit 8dc56c21b582c996c74ba72318f59bb19d9e381f[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 22:20:10 2020 -1200
+
+    Update index.blade.php
+
+[33mcommit 25b80fb2eae1db1a5172c027d85971d7c3accfe2[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 22:17:14 2020 -1200
+
+    Update form.blade.php
+
+[33mcommit 25b509dd5cfe72e5396354f55fee81faa5a6d8ec[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 22:05:38 2020 -1200
+
+    Update form.blade.php
+
+[33mcommit 36ac354e37617ac3080661183946d5d2b96fdff1[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 21:20:19 2020 -1200
+
+    Update detail.blade.php
+
+[33mcommit 08819eb2f631c099a692bcc8aec6cc7a6ec71a03[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 21:16:40 2020 -1200
+
+    Update ajax.blade.php
+
+[33mcommit 75f2b3f45ca4aea182d4128f2681378582420826[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Tue Apr 14 21:11:21 2020 -1200
+
+    Update ajax.blade.php
+
+[33mcommit 58b58b8eb80d987d960af93e2ac479c6ad8300cc[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Mon Apr 13 19:46:46 2020 -1200
+
+    Update Regu.php
+
+[33mcommit b9c3991031519316bc5fbbb9b713163198bf1905[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Mon Apr 13 19:44:54 2020 -1200
+
+    Update Regu.php
+
+[33mcommit 2bf50a43ce4494b2da2d8055a28f88f95427a339[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Tue Apr 14 08:43:27 2020 +0700
+
+    Update README.md
+
+[33mcommit 81d678391bb2ba0ac9669f9f3d7fdff8ae7507b3[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Tue Apr 14 00:06:43 2020 +0700
+
+    Update JalurSeeder.php
+
+[33mcommit b2c2a279189fd7ac3225266d4e1defbe1e469121[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Tue Apr 14 00:06:15 2020 +0700
+
+    Update ReguSeeder.php
+
+[33mcommit 9909d9fd7d8022287631f63d7c89e018ebee8a22[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Tue Apr 14 00:05:38 2020 +0700
+
+    Update PerlengkapanSeeder.php
+
+[33mcommit c88c545d1b5108f8aa3910796d8c12dc631f2a6c[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Tue Apr 14 00:04:32 2020 +0700
+
+    Update ReguSeeder.php
+
+[33mcommit f44cfa078f80c3cfbbbbd00c907589c097055ced[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 13 23:48:08 2020 +0700
+
+    Update README.md
+
+[33mcommit d8e98c5520a375950af6414b3d1a87c6cc8febdb[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 13 23:45:56 2020 +0700
+
+    Update README.md
+
+[33mcommit 0469c91049a1775387ab6929ab41e52c1fd19ed5[m
+Author: dndy24 <dendymail0@gmail.com>
+Date:   Mon Apr 13 23:27:42 2020 +0700
+
+    refresh
+    
+    push jalur & perlengkapan
+
+[33mcommit c9e40fda83c92e7b165ee919fe8fc6b4690eeba4[m
+Author: heraashter <62593234+heraashter@users.noreply.github.com>
+Date:   Sun Apr 12 16:38:22 2020 +0700
+
+    Update README.md
+
+[33mcommit 421591fbc62ece41ccb0ae6c40b52d74e0a5caaf[m
+Author: hera <hera3808@gmail.com>
+Date:   Sun Apr 12 15:41:43 2020 +0700
+
+    datapendaki
+
+[33mcommit 04af0546bbf3ee270a80ca0cdff9489b052cd59b[m
+Author: ianatulkh <ianatulkhoeriyah31@gmail.com>
+Date:   Fri Apr 10 00:53:15 2020 +0700
+
+    fix table regu
+
+[33mcommit 5c274970d355c3361b549330fab6e905b55a71e6[m
+Author: dndy24 <dendymail0@gmail.com>
+Date:   Thu Apr 9 23:55:50 2020 +0700
+
+    re
+
+[33mcommit 3715a13b1895c8e5b6887862f53f36c72418bb68[m
+Author: dndy24 <dendymail0@gmail.com>
+Date:   Thu Apr 9 23:37:35 2020 +0700
+
+    refresh
+
+[33mcommit a81225040653d6e366a121523d8f92f284360ff8[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Thu Apr 9 17:16:00 2020 +0700
+
+    Update README.md
+
+[33mcommit 142ddbfab7d5b7cd8798658d45248fa30ab629c1[m
+Author: heraashter <62593234+heraashter@users.noreply.github.com>
+Date:   Mon Apr 6 20:01:04 2020 +0700
+
+    Update User.php
+
+[33mcommit 8750ee3840f684ae13dd4433ba36b509eeb9b276[m
+Merge: 25350d8 539b9a1
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 6 19:17:42 2020 +0700
+
+    Merge pull request #3 from dndy24/master
+    
+    pull request
+
+[33mcommit 539b9a1e18329785d0e4dd1ea0b1a3a32c0945d9[m
+Author: heraashter <62593234+heraashter@users.noreply.github.com>
+Date:   Mon Apr 6 14:46:56 2020 +0700
+
+    Update JalurController.php
+
+[33mcommit 4340dbca227c55851682601040cd75139fb49d19[m
+Author: heraashter <62593234+heraashter@users.noreply.github.com>
+Date:   Mon Apr 6 14:42:36 2020 +0700
+
+    Update Jalur.php
+
+[33mcommit 2d2a17bf47bf222ec4d06eb95c79fcec508b346b[m
+Author: DesiAyuPurwono <48266222+DesiAyuPurwono@users.noreply.github.com>
+Date:   Mon Apr 6 13:17:13 2020 +0700
+
+    update_pendaki
+
+[33mcommit 1be85fd76e8343f808e412b327565359742e9253[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 6 09:57:13 2020 +0700
+
+    Update README.md
+
+[33mcommit 6cf7b5612d4f91b86a7632bc4d5c7cd6ff7c8d71[m
+Author: ianatulkh <48112871+ianatulkh@users.noreply.github.com>
+Date:   Sun Apr 5 14:35:14 2020 -1200
+
+    Update Jalur.php
+
+[33mcommit 607a2a8691ff456a1100af8c8351fac1a0ec30c1[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 6 08:22:09 2020 +0700
+
+    Update README.md
+
+[33mcommit 2f43590684624e7d45348f7aa93b14009b9e75e5[m
+Merge: f65703d 0e677ce
+Author: dndy24 <dendymail0@gmail.com>
+Date:   Mon Apr 6 06:30:02 2020 +0700
+
+    Merge branch 'master' of https://github.com/dndy24/laravel2020-B-G3
+
+[33mcommit f65703d472db06eab5785b9c52acd4cf998dba02[m
+Author: dndy24 <dendymail0@gmail.com>
+Date:   Mon Apr 6 06:27:56 2020 +0700
+
+    Pendaftaran Pendakian Gunung Slamet
+
+[33mcommit 0e677ce0d84ad0f1c19fbb71421b0778a817445b[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 6 06:02:24 2020 +0700
+
+    Delete .gitignore
+
+[33mcommit 4ec090fee9b44d5cee8b80294025b1e870165ec6[m
+Author: Dendy Jordan Wijaya <35665037+dndy24@users.noreply.github.com>
+Date:   Mon Apr 6 04:56:34 2020 +0700
+
+    Update README.md
+
+[33mcommit 25350d83980f700409f1e5c889a5735495841514[m
+Author: mirza-alim-m <mirza-alim-m@users.noreply.github.com>
+Date:   Tue Mar 24 14:24:47 2020 +0700
+
+    Update README.md
+
+[33mcommit 402cbaa831d2597144059cc78f7bb24dc359d05b[m
+Author: mirza-alim-m <mirza-alim-m@users.noreply.github.com>
+Date:   Tue Mar 24 14:24:17 2020 +0700
+
+    Initial commit
