@@ -25,3 +25,8 @@
   terlebih dahulu menggunakan shortkey Ctrl + Shift + Del kemudian Enter. Ini merupakan bug session, karena website
   ini dibangun dari awal (native) dan tanpa template. Bug akan segera diperbaiki secepatnya setelah kelompok kami
   menemukan solusinya. Mohon pengertiannya, terimakasih~
+
+# Demo
+http://laravel-b3.tegalian.com
+
+tester1@mailinator.com : 123456
