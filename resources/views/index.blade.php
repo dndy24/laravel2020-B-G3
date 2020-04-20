@@ -13,11 +13,11 @@
 		<h2>CRUD PENDAKI</h2>
 </div>
 <div class="col-md-4 text-right">
-	<form action="/search" method="get">
+	<form action="/cari" method="get">
 		<div class="input-group">
-			<input type="search" name="search" class="form-control">
+			<input type="cari" name="cari" class="form-control">
 			<span class="form-group-prepend">
-				<button type="submit" class="btn btn-prymary ">Search</button>
+				<button type="submit" class="btn btn-prymary ">cari</button>
 			</span>
 		</div>
 	</form>
