@@ -17,7 +17,7 @@
 		<div class="input-group">
 			<input type="cari" name="cari" class="form-control">
 			<span class="form-group-prepend">
-				<button type="submit" class="btn btn-prymary ">cari</button>
+				<button type="submit" class="btn btn-prymary ">Seacrh</button>
 			</span>
 		</div>
 	</form>
