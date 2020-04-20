@@ -43,7 +43,7 @@ Route::group(['prefix' => 'regus'], function() {
 
 
 Route::get('/', 'DakiController@index');
-Route::get('/search','DakiController@search');
+Route::get('/cari','DakiController@cari');
 Route::delete('/deleteall', 'DakiController@deleteAll');
 Route::resource('daki','DakiController');
 
