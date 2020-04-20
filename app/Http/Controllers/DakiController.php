@@ -30,10 +30,10 @@ class DakiController extends Controller
         return view('create');
     }
 
-    public function search(Request $request)
+    public function cari(Request $request)
     {
-        $search = $request->get('search');
-        $dakis = DB::table('dakis')->where('nama', 'like', '%'.$search.'%')->paginate(15);
+        $cari = $request->get('cari');
+        $dakis = DB::table('dakis')->where('nama', 'like', '%'.$cari.'%')->paginate(15);
         return view('index', ['dakis' => $dakis]);
     }
 
