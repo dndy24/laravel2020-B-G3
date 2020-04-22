@@ -12,7 +12,7 @@
                 </ul>
             </div>
 			@endif
-	<form action="{{ action('DakiController@store') }}" method="daki">
+	<form action="{{ action('DakiController@store') }}" method="POST">
 		@csrf
 		<div class="form-group">
 			<label>Nama</label>
