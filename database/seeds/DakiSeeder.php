@@ -14,18 +14,20 @@ class DakiSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create('id_ID');
-    	for ($i = 1; $i <= 100; $i++) { 
-    		# code...
-    	
+        static $angka = 1;
+        for($i = 1; $i <= 100; $i++){ 
+            # code...
+        
 
 
          DB::table('dakis')->insert([
-        	
-        	'nama' => $faker->name,
-        	'alamat' => $faker->address,
-        	'regu_id' => $faker->numberBetween(00001,99999),
-        	'operator_id' => $faker->numberBetween(00001,99999),
-        	'tanggal_mendaki' => $faker->date
+            
+            'nama' => $faker->name,
+            'alamat' => $faker->address,
+            'regu_id' => $angka++,
+            'tanggal_mendaki' => $faker->date,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

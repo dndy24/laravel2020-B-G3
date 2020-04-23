@@ -37,7 +37,7 @@
     <nav class="navbar fixed-top bg-info">
       <a class="navbar-brand" href="/jalurs">Jalur Pendakian Gunung Slamet</a>
       <div style="margin: 15px; text-align: right;">
-          <a href="/daki"> Data Pendaki </a> ||
+          <a href="/dakis"> Data Pendaki </a> ||
           <a href="/regus"> Regu Pendakian </a> ||
           <a href="/perlengkapans"> Perlengkapan Regu </a>
       </div>

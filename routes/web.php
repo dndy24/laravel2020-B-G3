@@ -41,11 +41,13 @@ Route::group(['prefix' => 'regus'], function() {
   Route::delete('delete/{id}', 'ReguController@destroy');
 });
 
-
-Route::get('/', 'DakiController@index');
-Route::get('/cari','DakiController@cari');
-Route::delete('/deleteall', 'DakiController@deleteAll');
-Route::resource('daki','DakiController');
+Route::group(['prefix' => 'dakis'], function() {
+  Route::get('/', 'DakiController@index');
+  Route::match(['get', 'post'], 'create', 'DakiController@create');
+  Route::match(['get', 'put'], 'update/{id}', 'DakiController@update');
+  Route::get('show/{id}', 'DakiController@show');
+  Route::delete('delete/{id}', 'DakiController@destroy');
+});
 
 
 Route::get('/', 'ProcessController@indexlogin');

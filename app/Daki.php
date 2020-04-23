@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Daki extends Model
 {
-   protected $fillable = [
-        'nama', 'alamat', 'regu_id', 'operator_id', 'tanggal_mendaki'
-    ];
+    protected $table = 'dakis';
+	protected $fillable = ['nama', 'alamat', 'tanggal_mendaki'];
+
+	public function regu(){
+		return $this->belongsTo("App\Regu", "regu_id");
+	}
 }

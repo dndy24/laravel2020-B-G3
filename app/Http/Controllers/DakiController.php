@@ -1,148 +1,106 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Daki;
+use Illuminate\Support\Facades\Validator;
 
 class DakiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $dakis = DB::table('dakis')->paginate(10);
-        return view('index', ['dakis' => $dakis]);
+      $request->session()->put('cari', $request
+              ->has('cari') ? $request->get('cari') : ($request->session()
+              ->has('cari') ? $request->session()->get('cari') : ''));
+
+              $request->session()->put('field', $request
+                      ->has('field') ? $request->get('field') : ($request->session()
+                      ->has('field') ? $request->session()->get('field') : 'regu_id'));
+
+                      $request->session()->put('sort', $request
+                              ->has('sort') ? $request->get('sort') : ($request->session()
+                              ->has('sort') ? $request->session()->get('sort') : 'asc'));
+
+      $dakis = new Daki();
+            $dakis = $dakis->where('regu_id', 'like', '%' . $request->session()->get('cari') . '%')
+                ->orderBy($request->session()->get('field'), $request->session()->get('sort'))
+                ->paginate(10);
+            if ($request->ajax()) {
+              return view('dakis.index', compact('dakis'));
+            } else {
+              return view('dakis.ajax', compact('dakis'));
+            }
     }
 
-     
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(Request $request)
     {
-        return view('create');
-    }
+        if ($request->isMethod('get'))
+        return view('dakis.form');
 
-    public function cari(Request $request)
-    {
-        $cari = $request->get('cari');
-        $dakis = DB::table('dakis')->where('nama', 'like', '%'.$cari.'%')->paginate(15);
-        return view('index', ['dakis' => $dakis]);
-    }
+        $rules = [
+          'nama' => 'required',
+        ];
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-        $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'regu_id' => 'required',
-            'operator_id' => 'required',
-         'tanggal_mendaki' => 'required'
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails())
+        return response()->json([
+          'fail' =>true,
+          'errors' => $validator->errors()
         ]);
-        
-        $nama = $request -> get('nama');
-        $alamat = $request -> get('alamat');
-        $regu_id = $request->get('regu_id');
-        $operator_id = $request->get('operator_id');
-        $tanggal_mendaki = $request -> get('tanggal_mendaki');
-        $dakis = DB::insert('insert into dakis(nama, alamat, regu_id, operator_id, tanggal_mendaki) value(?,?,?,?,?)', [$nama, $alamat, $regu_id, $operator_id, $tanggal_mendaki]);
-        if($dakis){
-            $red = redirect('daki')-> with('success','Data has been added');
-        }else{
-            $red = redirect('dakis/create')-> with('danger','Input data failed, please try again');
+
+        $daki = new Daki();
+        $daki->nama = $request->nama;
+        $daki->alamat = $request->alamat;
+        $daki->regu_id = $request->regu_id;
+        $daki->tanggal_mendaki = $request->tanggal_mendaki;
+        $daki->save();
+
+        return response()->json([
+          'fail' => false,
+          'redirect_url' => url('dakis')
+        ]);
+    }
+
+    public function show(Request $request, $id)
+    {
+        if($request->isMethod('get')) {
+          return view('dakis.detail',['daki' => Daki::find($id)]);
         }
-        return $red;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-    $dakis = DB::select('select * from dakis where id=?',[$id]);
-        return view('show', ['dakis'=> $dakis]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-    $dakis = DB::select('select * from dakis where id=?',[$id]);
-        return view('edit', ['dakis' => $dakis]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-       
-        $request->validate([
-            'nama' => 'required',
-            'alamat' => 'required',
-            'regu_id' => 'required',
-            'operator_id' => 'required',
-            'tanggal_mendaki' => 'required'
- 
-        ]);
-        $nama = $request->get('nama');
-        $alamat = $request->get('alamat');
-        $regu_id = $request->get('regu_id');
-        $operator_id = $request->get('operator_id');
-        $tanggal_mendaki = $request->get('tanggal_mendaki');
-        
-        $dakis = DB::update('update dakis set nama=?, alamat=?, regu_id=?, operator_id=?, tanggal_mendaki=? where id=?',[$nama, $alamat, $regu_id, $operator_id, $tanggal_mendaki, $id]);
-        if($dakis){
-            $red = redirect('daki')->with('success','Data has been updated');
-        } else{
-            $red = redirect('dakis/edit/'.$id)->with('danger','Error Update please try again');
-        }
-        return $red;
+      if ($request->isMethod('get'))
+      return view('dakis.form',['daki' => Daki::find($id)]);
+
+      $rules = [
+        'nama' => 'required',
+      ];
+
+      $validator = Validator::make($request->all(), $rules);
+      if ($validator->fails())
+      return response()->json([
+        'fail' =>true,
+        'errors' => $validator->errors()
+      ]);
+
+      $daki = Daki::find($id);
+       $daki->nama = $request->nama;
+        $daki->alamat = $request->alamat;
+        $daki->regu_id = $request->regu_id;
+        $daki->tanggal_mendaki = $request->tanggal_mendaki;
+        $daki->save();
+      
+
+      return response()->json([
+        'fail' => false,
+        'redirect_url' => url('dakis')
+      ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-         $dakis = DB::delete('delete from dakis where id=?',[$id]);
-        $red = redirect('daki');
-        return $red;
+        Daki::destroy($id);
+        return redirect('dakis');
     }
-
-    public function deleteAll(Request $request)
-    {
-        $ids = $request->get('ids');
-        $dbs = DB::delete('delete from dakis where id in ('.implode(",",$ids).')');
-        return redirect('daki');
-    }
-
 }

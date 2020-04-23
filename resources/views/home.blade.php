@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     <div style="margin: 15px; text-align: center;">
                         <h2>Selamat Datang, silahkan tekan menu dibawah</h2>
-                        <a href="/daki"> Data Pendaki </a> ||
+                        <a href="/dakis"> Data Pendaki </a> ||
                         <a href="/regus"> Regu Pendakian </a> ||
                         <a href="/jalurs"> Jalur Pendakian </a> ||
                         <a href="/perlengkapans"> Perlengkapan Regu </a>
