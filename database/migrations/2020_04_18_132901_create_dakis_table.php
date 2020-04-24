@@ -18,7 +18,6 @@ class CreateDakisTable extends Migration
             $table->string('nama');
             $table->text('alamat');
             $table->string('regu_id');
-            $table->string('operator_id');
             $table->string('tanggal_mendaki');
               $table->timestamps();
         });
