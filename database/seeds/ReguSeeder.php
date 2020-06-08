@@ -15,7 +15,7 @@ class ReguSeeder extends Seeder
         $faker = Faker::create('id_ID');
         $regu = ['Macan', 'Harimau', 'Elang', 'Serigala', 'Rusa', 'Kuda', 'Semut'];
         static $angka = 1;
-    	for($i = 1; $i <= 100; $i++){
+    	for($i = 1; $i <= 25; $i++){
  
     	    // insert data ke table menggunakan Faker
     		DB::table('regus')->insert([
