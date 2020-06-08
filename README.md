@@ -21,12 +21,12 @@
  9. Untuk menjalankan ketik php artisan serve
 
  ### UPDATE :
- Untuk menjalankan fitur login forget password melalui email, isi kolom
+ Untuk menjalankan fitur login forget password melalui email, isi kolom pada file .env.
  - MAIL_USERNAME="DIISI EMAIL UNTUK SMTP"
  - MAIL_PASSWORD="DIISI PASSWORD"
  - MAIL_FROM_ADDRESS="DIISI EMAIL UNTUK SMTP"
- pada file .env.
- PASTIKAN EMAIL YANG DIGUNAKAN SUDAH DISETTING UNTUK SMTP!
+ 
+ #### PASTIKAN EMAIL YANG DIGUNAKAN SUDAH DISETTING UNTUK SMTP!
 
 ### Catatan :
 - Untuk membuka/berpindah page dari page regus, jalurs, dan perlengkapans diwajibkan untuk menghapus kuki (cookies),
