@@ -20,6 +20,14 @@
  8. Lalu ketik kembali php artisan migrate --seed
  9. Untuk menjalankan ketik php artisan serve
 
+ ### UPDATE :
+ Untuk menjalankan fitur login forget password melalui email, isi kolom
+ - MAIL_USERNAME="DIISI EMAIL UNTUK SMTP"
+ - MAIL_PASSWORD="DIISI PASSWORD"
+ - MAIL_FROM_ADDRESS="DIISI EMAIL UNTUK SMTP"
+ pada file .env.
+ PASTIKAN EMAIL YANG DIGUNAKAN SUDAH DISETTING UNTUK SMTP!
+
 ### Catatan :
 - Untuk membuka/berpindah page dari page regus, jalurs, dan perlengkapans diwajibkan untuk menghapus kuki (cookies),
   terlebih dahulu menggunakan shortkey Ctrl + Shift + Del kemudian Enter. Ini merupakan bug session, karena website
