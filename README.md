@@ -22,11 +22,11 @@
 
  ### UPDATE :
  Untuk menjalankan fitur login forget password melalui email, isi kolom pada file .env.
- - MAIL_USERNAME="DIISI EMAIL UNTUK SMTP"
- - MAIL_PASSWORD="DIISI PASSWORD"
- - MAIL_FROM_ADDRESS="DIISI EMAIL UNTUK SMTP"
+ - MAIL_USERNAME="DI ISI EMAIL UNTUK SMTP"
+ - MAIL_PASSWORD="DI ISI PASSWORD"
+ - MAIL_FROM_ADDRESS="DI ISI EMAIL UNTUK SMTP"
  
- #### PASTIKAN EMAIL YANG DIGUNAKAN SUDAH DISETTING UNTUK SMTP!
+ #### PASTIKAN EMAIL YANG DIGUNAKAN SUDAH DI SETTING UNTUK SMTP!
 
 ### Catatan :
 - Untuk membuka/berpindah page dari page regus, jalurs, dan perlengkapans diwajibkan untuk menghapus kuki (cookies),
