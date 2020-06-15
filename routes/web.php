@@ -23,12 +23,6 @@ Route::group(['prefix' => 'jalurs'], function() {
   Route::match(['get', 'put'], 'update/{id}', 'JalurController@update');
   Route::get('show/{id}', 'JalurController@show');
   Route::delete('delete/{id}', 'JalurController@destroy');
-  //Upload image
-  Route::get('image','ImageController@index');
-  Route::post('image','ImageController@upload');
-  //Upload pdf
-  Route::get('file', 'fileController@index');
-  Route::get('save', 'fileController@save');
 });
 
 Route::group(['prefix' => 'perlengkapans'], function() {
@@ -37,7 +31,12 @@ Route::group(['prefix' => 'perlengkapans'], function() {
   Route::match(['get', 'put'], 'update/{id}', 'PerlengkapanController@update');
   Route::get('show/{id}', 'PerlengkapanController@show');
   Route::delete('delete/{id}', 'PerlengkapanController@destroy');
-
+  //Upload image
+  Route::get('image','ImageController@index');
+  Route::post('image','ImageController@upload');
+  //Upload pdf
+  Route::get('file', 'fileController@index');
+  Route::get('save', 'fileController@save');
 });
 Route::group(['prefix' => 'regus'], function() {
   Route::get('/', 'ReguController@index');
