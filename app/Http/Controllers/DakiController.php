@@ -98,6 +98,39 @@ class DakiController extends Controller
       ]);
     }
 
+    //Upload pdf
+    public function save()
+    {
+       request()->validate([
+         'file'  => 'required|mimes:doc,docx,pdf,txt|max:2048',
+       ]);
+
+       if ($files = $request->file('fileUpload')) {
+           $destinationPath = 'public/file/'; // upload path
+           $profilefile = date('YmdHis') . "." . $files->getClientOriginalExtension();
+           $files->move($destinationPath, $profilefile);
+           $insert['file'] = "$profilefile";
+        }
+
+        $check = Document::insertGetId($insert);
+
+        return Redirect::to("file")
+        ->withSuccess('Great! file has been successfully uploaded.');
+    }
+
+    //Upload gambar
+    public function upload(Request $request){
+      if($request->hasFile('image')){
+          $resorce       = $request->file('image');
+          $name   = $resorce->getClientOriginalName();
+          $resorce->move(\base_path() ."/public/images", $name);
+          $save = DB::table('images')->insert(['image' => $name]);
+          echo "Gambar berhasil di upload";
+      }else{
+          echo "Gagal upload gambar";
+      }
+  }
+
     public function destroy($id)
     {
         Daki::destroy($id);

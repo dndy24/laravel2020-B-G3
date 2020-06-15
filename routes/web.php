@@ -52,6 +52,12 @@ Route::group(['prefix' => 'dakis'], function() {
   Route::match(['get', 'put'], 'update/{id}', 'DakiController@update');
   Route::get('show/{id}', 'DakiController@show');
   Route::delete('delete/{id}', 'DakiController@destroy');
+   //Upload image
+  Route::get('image','ImageController@index');
+  Route::post('image','ImageController@upload');
+  //Upload pdf
+  Route::get('file', 'fileController@index');
+  Route::get('save', 'fileController@save');
 });
 
 

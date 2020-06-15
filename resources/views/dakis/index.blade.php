@@ -46,7 +46,7 @@
 
             <th width="160px" style="vertical-align: middle">
               <a href="javascript:ajaxLoad('{{url('dakis/create')}}')"
-                 class="btn btn-primary btn-xs"> <i class="fa fa-plus" aria-hidden="true"></i> Tambah Jalur</a>
+                 class="btn btn-primary btn-xs"> <i class="fa fa-plus" aria-hidden="true"></i> Tambah Data</a>
             </th>
         </tr>
         </thead>

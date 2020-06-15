@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-md-8 offset-md-2">
-        <h1>{{isset($daki)?'Edit':'Tambah'}} Daki</h1>
+        <h1>{{isset($daki)?'Edit':'Tambah'}} Data</h1>
         <hr/>
         @if(isset($daki))
             {!! Form::model($daki,['method'=>'put','id'=>'frm']) !!}
