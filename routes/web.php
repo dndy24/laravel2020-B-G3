@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+ //Upload image
+  Route::get('image','ImageController@index');
+  Route::post('image','ImageController@upload');
+  //Upload pdf
+  Route::get('file', 'fileController@index');
+  Route::get('save', 'fileController@save');
+
 Route::group(['prefix' => 'jalurs'], function() {
   Route::get('/', 'JalurController@index');
   Route::match(['get', 'post'], 'create', 'JalurController@create');
