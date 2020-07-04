@@ -1,138 +1,151 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Perlengkapan;
-use Illuminate\Support\Facades\Validator;
 
-class PerlengkapanController extends Controller
+use App\DataTables\PerlengkapanDataTable;
+use App\Http\Requests;
+use App\Http\Requests\CreatePerlengkapanRequest;
+use App\Http\Requests\UpdatePerlengkapanRequest;
+use App\Repositories\PerlengkapanRepository;
+use Flash;
+use App\Http\Controllers\AppBaseController;
+use Response;
+
+class PerlengkapanController extends AppBaseController
 {
-    public function index(Request $request)
+    /** @var  PerlengkapanRepository */
+    private $perlengkapanRepository;
+
+    public function __construct(PerlengkapanRepository $perlengkapanRepo)
     {
-      $request->session()->put('search', $request
-              ->has('search') ? $request->get('search') : ($request->session()
-              ->has('search') ? $request->session()->get('search') : ''));
-
-              $request->session()->put('field', $request
-                      ->has('field') ? $request->get('field') : ($request->session()
-                      ->has('field') ? $request->session()->get('field') : 'regu_id'));
-
-                      $request->session()->put('sort', $request
-                              ->has('sort') ? $request->get('sort') : ($request->session()
-                              ->has('sort') ? $request->session()->get('sort') : 'asc'));
-
-      $perlengkapans = new Perlengkapan();
-            $perlengkapans = $perlengkapans->where('regu_id', 'like', '%' . $request->session()->get('search') . '%')
-                ->orderBy($request->session()->get('field'), $request->session()->get('sort'))
-                ->paginate(10);
-            if ($request->ajax()) {
-              return view('perlengkapans.index', compact('perlengkapans'));
-            } else {
-              return view('perlengkapans.ajax', compact('perlengkapans'));
-            }
+        $this->perlengkapanRepository = $perlengkapanRepo;
     }
 
-    public function create(Request $request)
+    /**
+     * Display a listing of the Perlengkapan.
+     *
+     * @param PerlengkapanDataTable $perlengkapanDataTable
+     * @return Response
+     */
+    public function index(PerlengkapanDataTable $perlengkapanDataTable)
     {
-        if ($request->isMethod('get'))
-        return view('perlengkapans.form');
-
-        $rules = [
-          'surat_ijin' => 'required',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails())
-        return response()->json([
-          'fail' =>true,
-          'errors' => $validator->errors()
-        ]);
-
-        $perlengkapan = new Perlengkapan();
-        $perlengkapan->regu_id = $request->regu_id;
-        $perlengkapan->surat_ijin = $request->surat_ijin;
-        $perlengkapan->p3k = $request->p3k;
-        $perlengkapan->navigasi = $request->navigasi;
-        $perlengkapan->save();
-
-        return response()->json([
-          'fail' => false,
-          'redirect_url' => url('perlengkapans')
-        ]);
+        return $perlengkapanDataTable->render('perlengkapans.index');
     }
 
-    public function show(Request $request, $id)
+    /**
+     * Show the form for creating a new Perlengkapan.
+     *
+     * @return Response
+     */
+    public function create()
     {
-        if($request->isMethod('get')) {
-          return view('perlengkapans.detail',['perlengkapan' => Perlengkapan::find($id)]);
+        return view('perlengkapans.create');
+    }
+
+    /**
+     * Store a newly created Perlengkapan in storage.
+     *
+     * @param CreatePerlengkapanRequest $request
+     *
+     * @return Response
+     */
+    public function store(CreatePerlengkapanRequest $request)
+    {
+        $input = $request->all();
+
+        $perlengkapan = $this->perlengkapanRepository->create($input);
+
+        Flash::success('Perlengkapan saved successfully.');
+
+        return redirect(route('perlengkapans.index'));
+    }
+
+    /**
+     * Display the specified Perlengkapan.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $perlengkapan = $this->perlengkapanRepository->find($id);
+
+        if (empty($perlengkapan)) {
+            Flash::error('Perlengkapan not found');
+
+            return redirect(route('perlengkapans.index'));
         }
+
+        return view('perlengkapans.show')->with('perlengkapan', $perlengkapan);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Show the form for editing the specified Perlengkapan.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
     {
-      if ($request->isMethod('get'))
-      return view('perlengkapans.form',['perlengkapan' => Perlengkapan::find($id)]);
+        $perlengkapan = $this->perlengkapanRepository->find($id);
 
-      $rules = [
-        'surat_ijin' => 'required',
-      ];
+        if (empty($perlengkapan)) {
+            Flash::error('Perlengkapan not found');
 
-      $validator = Validator::make($request->all(), $rules);
-      if ($validator->fails())
-      return response()->json([
-        'fail' =>true,
-        'errors' => $validator->errors()
-      ]);
-
-      $perlengkapan = Perlengkapan::find($id);
-      $perlengkapan->regu_id = $request->regu_id;
-      $perlengkapan->surat_ijin = $request->surat_ijin;
-      $perlengkapan->p3k = $request->p3k;
-      $perlengkapan->navigasi = $request->navigasi;
-      $perlengkapan->save();
-
-      return response()->json([
-        'fail' => false,
-        'redirect_url' => url('perlengkapans')
-      ]);
-    }
-    
-    //Upload pdf
-    public function save()
-    {
-       request()->validate([
-         'file'  => 'required|mimes:doc,docx,pdf,txt|max:2048',
-       ]);
- 
-       if ($files = $request->file('fileUpload')) {
-           $destinationPath = 'public/file/'; // upload path
-           $profilefile = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profilefile);
-           $insert['file'] = "$profilefile";
+            return redirect(route('perlengkapans.index'));
         }
-         
-        $check = Document::insertGetId($insert);
- 
-        return Redirect::to("file")
-        ->withSuccess('Great! file has been successfully uploaded.');
+
+        return view('perlengkapans.edit')->with('perlengkapan', $perlengkapan);
     }
 
-    //Upload gambar
-    public function upload(Request $request){
-      if($request->hasFile('image')){
-          $resorce       = $request->file('image');
-          $name   = $resorce->getClientOriginalName();
-          $resorce->move(\base_path() ."/public/images", $name);
-          $save = DB::table('images')->insert(['image' => $name]);
-          echo "Gambar berhasil di upload";
-      }else{
-          echo "Gagal upload gambar";
-      }
-  }
+    /**
+     * Update the specified Perlengkapan in storage.
+     *
+     * @param  int              $id
+     * @param UpdatePerlengkapanRequest $request
+     *
+     * @return Response
+     */
+    public function update($id, UpdatePerlengkapanRequest $request)
+    {
+        $perlengkapan = $this->perlengkapanRepository->find($id);
 
+        if (empty($perlengkapan)) {
+            Flash::error('Perlengkapan not found');
+
+            return redirect(route('perlengkapans.index'));
+        }
+
+        $perlengkapan = $this->perlengkapanRepository->update($request->all(), $id);
+
+        Flash::success('Perlengkapan updated successfully.');
+
+        return redirect(route('perlengkapans.index'));
+    }
+
+    /**
+     * Remove the specified Perlengkapan from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
     public function destroy($id)
     {
-        Perlengkapan::destroy($id);
-        return redirect('perlengkapans');
+        $perlengkapan = $this->perlengkapanRepository->find($id);
+
+        if (empty($perlengkapan)) {
+            Flash::error('Perlengkapan not found');
+
+            return redirect(route('perlengkapans.index'));
+        }
+
+        $this->perlengkapanRepository->delete($id);
+
+        Flash::success('Perlengkapan deleted successfully.');
+
+        return redirect(route('perlengkapans.index'));
     }
 }

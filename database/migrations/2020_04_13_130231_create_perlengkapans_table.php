@@ -14,11 +14,12 @@ class CreatePerlengkapansTable extends Migration
     public function up()
     {
         Schema::create('perlengkapans', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('regu_id');
-            $table->string('surat_ijin');
-            $table->string('p3k');
+            $table->bigIncrements('id');
+            $table->unsignedInteger('regu_id')->nullable();
             $table->string('navigasi');
+            $table->string('foto');
+            $table->string('file');
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

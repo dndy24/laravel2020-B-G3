@@ -20,9 +20,9 @@ class PerlengkapanSeeder extends Seeder
     	    // insert data ke table menggunakan Faker
     		DB::table('perlengkapans')->insert([
     			'regu_id' => $angka++,
-                'surat_ijin' => $faker->randomElement($cek),
-                'p3k' => $faker->randomElement($cek),
                 'navigasi' => $faker->randomElement($cek),
+				'foto' => 'storage/app/public/photo/puffin.jpg',
+                'file' => 'storage/app/public/pdf/dummy.pdf',
                 'created_at' => now(),
                 'updated_at' => now()
     		]);

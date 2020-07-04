@@ -1,107 +1,151 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Regu;
-use Illuminate\Support\Facades\Validator;
 
-class ReguController extends Controller
+use App\DataTables\ReguDataTable;
+use App\Http\Requests;
+use App\Http\Requests\CreateReguRequest;
+use App\Http\Requests\UpdateReguRequest;
+use App\Repositories\ReguRepository;
+use Flash;
+use App\Http\Controllers\AppBaseController;
+use Response;
+
+class ReguController extends AppBaseController
 {
-    public function index(Request $request)
+    /** @var  ReguRepository */
+    private $reguRepository;
+
+    public function __construct(ReguRepository $reguRepo)
     {
-      $request->session()->put('search', $request
-              ->has('search') ? $request->get('search') : ($request->session()
-              ->has('search') ? $request->session()->get('search') : ''));
-
-              $request->session()->put('field', $request
-                      ->has('field') ? $request->get('field') : ($request->session()
-                      ->has('field') ? $request->session()->get('field') : 'regu'));
-
-                      $request->session()->put('sort', $request
-                              ->has('sort') ? $request->get('sort') : ($request->session()
-                              ->has('sort') ? $request->session()->get('sort') : 'asc'));
-
-      $regus = new Regu();
-            $regus = $regus->where('regu', 'like', '%' . $request->session()->get('search') . '%')
-                ->orderBy($request->session()->get('field'), $request->session()->get('sort'))
-                ->paginate(10);
-            if ($request->ajax()) {
-              return view('regus.index', compact('regus'));
-            } else {
-              return view('regus.ajax', compact('regus'));
-            }
+        $this->reguRepository = $reguRepo;
     }
 
-    public function create(Request $request)
+    /**
+     * Display a listing of the Regu.
+     *
+     * @param ReguDataTable $reguDataTable
+     * @return Response
+     */
+    public function index(ReguDataTable $reguDataTable)
     {
-        if ($request->isMethod('get'))
-        return view('regus.form');
-
-        $rules = [
-          'regu' => 'required',
-          'jumlah_anggota' => 'required',
-          'jalur_id' => 'required'
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails())
-        return response()->json([
-          'fail' =>true,
-          'errors' => $validator->errors()
-        ]);
-
-        $regu = new Regu();
-        $regu->regu = $request->regu;
-        $regu->jumlah_anggota = $request->jumlah_anggota;
-        $regu->jalur_id = $request->jalur_id;
-        $regu->save();
-
-        return response()->json([
-          'fail' => false,
-          'redirect_url' => url('regus')
-        ]);
+        return $reguDataTable->render('regus.index');
     }
 
-    public function show(Request $request, $id)
+    /**
+     * Show the form for creating a new Regu.
+     *
+     * @return Response
+     */
+    public function create()
     {
-        if($request->isMethod('get')) {
-          return view('regus.detail',['regu' => Regu::find($id)]);
+        return view('regus.create');
+    }
+
+    /**
+     * Store a newly created Regu in storage.
+     *
+     * @param CreateReguRequest $request
+     *
+     * @return Response
+     */
+    public function store(CreateReguRequest $request)
+    {
+        $input = $request->all();
+
+        $regu = $this->reguRepository->create($input);
+
+        Flash::success('Regu saved successfully.');
+
+        return redirect(route('regus.index'));
+    }
+
+    /**
+     * Display the specified Regu.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $regu = $this->reguRepository->find($id);
+
+        if (empty($regu)) {
+            Flash::error('Regu not found');
+
+            return redirect(route('regus.index'));
         }
+
+        return view('regus.show')->with('regu', $regu);
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Show the form for editing the specified Regu.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
     {
-      if ($request->isMethod('get'))
-      return view('regus.form',['regu' => Regu::find($id)]);
+        $regu = $this->reguRepository->find($id);
 
-      $rules = [
-        'regu' => 'required',
-        'jumlah_anggota' => 'required',
-        'jalur_id' => 'required',
-      ];
+        if (empty($regu)) {
+            Flash::error('Regu not found');
 
-      $validator = Validator::make($request->all(), $rules);
-      if ($validator->fails())
-      return response()->json([
-        'fail' =>true,
-        'errors' => $validator->errors()
-      ]);
+            return redirect(route('regus.index'));
+        }
 
-      $regu = Regu::find($id);
-      $regu->regu = $request->regu;
-      $regu->jumlah_anggota = $request->jumlah_anggota;
-      $regu->jalur_id = $request->jalur_id;
-      $regu->save();
-
-      return response()->json([
-        'fail' => false,
-        'redirect_url' => url('regus')
-      ]);
+        return view('regus.edit')->with('regu', $regu);
     }
 
+    /**
+     * Update the specified Regu in storage.
+     *
+     * @param  int              $id
+     * @param UpdateReguRequest $request
+     *
+     * @return Response
+     */
+    public function update($id, UpdateReguRequest $request)
+    {
+        $regu = $this->reguRepository->find($id);
+
+        if (empty($regu)) {
+            Flash::error('Regu not found');
+
+            return redirect(route('regus.index'));
+        }
+
+        $regu = $this->reguRepository->update($request->all(), $id);
+
+        Flash::success('Regu updated successfully.');
+
+        return redirect(route('regus.index'));
+    }
+
+    /**
+     * Remove the specified Regu from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
     public function destroy($id)
     {
-        Regu::destroy($id);
-        return redirect('regus');
+        $regu = $this->reguRepository->find($id);
+
+        if (empty($regu)) {
+            Flash::error('Regu not found');
+
+            return redirect(route('regus.index'));
+        }
+
+        $this->reguRepository->delete($id);
+
+        Flash::success('Regu deleted successfully.');
+
+        return redirect(route('regus.index'));
     }
 }

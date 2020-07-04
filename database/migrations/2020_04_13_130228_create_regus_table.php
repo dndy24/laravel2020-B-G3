@@ -14,10 +14,13 @@ class CreateRegusTable extends Migration
     public function up()
     {
         Schema::create('regus', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('regu');
             $table->string('jumlah_anggota');
-            $table->string('jalur_id');
+            $table->string('jalur_id')->nullable();
+            $table->string('foto');
+            $table->string('file');
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

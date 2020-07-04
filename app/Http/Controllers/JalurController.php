@@ -1,148 +1,151 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Jalur;
-use Illuminate\Support\Facades\Validator;
 
-class JalurController extends Controller
+use App\DataTables\JalurDataTable;
+use App\Http\Requests;
+use App\Http\Requests\CreateJalurRequest;
+use App\Http\Requests\UpdateJalurRequest;
+use App\Repositories\JalurRepository;
+use Flash;
+use App\Http\Controllers\AppBaseController;
+use Response;
+
+class JalurController extends AppBaseController
 {
-    public function index(Request $request)
+    /** @var  JalurRepository */
+    private $jalurRepository;
+
+    public function __construct(JalurRepository $jalurRepo)
     {
-      $request->session()->put('search', $request
-              ->has('search') ? $request->get('search') : ($request->session()
-              ->has('search') ? $request->session()->get('search') : ''));
-
-              $request->session()->put('field', $request
-                      ->has('field') ? $request->get('field') : ($request->session()
-                      ->has('field') ? $request->session()->get('field') : 'nama'));
-
-                      $request->session()->put('sort', $request
-                              ->has('sort') ? $request->get('sort') : ($request->session()
-                              ->has('sort') ? $request->session()->get('sort') : 'asc'));
-
-      $jalurs = new Jalur();
-            $jalurs = $jalurs->where('nama', 'like', '%' . $request->session()->get('search') . '%')
-                ->orderBy($request->session()->get('field'), $request->session()->get('sort'))
-                ->paginate(10);
-            if ($request->ajax()) {
-              return view('jalurs.index', compact('jalurs'));
-            } else {
-              return view('jalurs.ajax', compact('jalurs'));
-            }
+        $this->jalurRepository = $jalurRepo;
     }
 
-    public function create(Request $request)
+    /**
+     * Display a listing of the Jalur.
+     *
+     * @param JalurDataTable $jalurDataTable
+     * @return Response
+     */
+    public function index(JalurDataTable $jalurDataTable)
     {
-        if ($request->isMethod('get'))
-        return view('jalurs.form');
-
-        $rules = [
-          'nama' => 'required',
-          'lokasi' => 'required',
-          'estimasi' => 'required',
-          'jumlah_pos' => 'required',
-          'status' => 'required',
-        ];
-
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails())
-        return response()->json([
-          'fail' =>true,
-          'errors' => $validator->errors()
-        ]);
-
-        $jalur = new Jalur();
-        $jalur->nama = $request->nama;
-        $jalur->lokasi = $request->lokasi;
-        $jalur->estimasi = $request->estimasi;
-        $jalur->jumlah_pos = $request->jumlah_pos;
-        $jalur->status = $request->status;
-        $jalur->save();
-
-        return response()->json([
-          'fail' => false,
-          'redirect_url' => url('jalurs')
-        ]);
+        return $jalurDataTable->render('jalurs.index');
     }
 
-    public function show(Request $request, $id)
+    /**
+     * Show the form for creating a new Jalur.
+     *
+     * @return Response
+     */
+    public function create()
     {
-        if($request->isMethod('get')) {
-          return view('jalurs.detail',['jalur' => Jalur::find($id)]);
-        }
+        return view('jalurs.create');
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Store a newly created Jalur in storage.
+     *
+     * @param CreateJalurRequest $request
+     *
+     * @return Response
+     */
+    public function store(CreateJalurRequest $request)
     {
-      if ($request->isMethod('get'))
-      return view('jalurs.form',['jalur' => Jalur::find($id)]);
+        $input = $request->all();
 
-      $rules = [
-        'nama' => 'required',
-          'lokasi' => 'required',
-          'estimasi' => 'required',
-          'jumlah_pos' => 'required',
-          'status' => 'required',
-      ];
+        $jalur = $this->jalurRepository->create($input);
 
-      $validator = Validator::make($request->all(), $rules);
-      if ($validator->fails())
-      return response()->json([
-        'fail' =>true,
-        'errors' => $validator->errors()
-      ]);
+        Flash::success('Jalur saved successfully.');
 
-      $jalur = Jalur::find($id);
-      $jalur->nama = $request->nama;
-      $jalur->lokasi = $request->lokasi;
-      $jalur->estimasi = $request->estimasi;
-      $jalur->jumlah_pos = $request->jumlah_pos;
-      $jalur->status = $request->status;
-      $jalur->save();
-
-      return response()->json([
-        'fail' => false,
-        'redirect_url' => url('jalurs')
-      ]);
+        return redirect(route('jalurs.index'));
     }
 
-     //Upload pdf
-    public function save()
+    /**
+     * Display the specified Jalur.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function show($id)
     {
-       request()->validate([
-         'file'  => 'required|mimes:doc,docx,pdf,txt|max:2048',
-       ]);
+        $jalur = $this->jalurRepository->find($id);
 
-       if ($files = $request->file('fileUpload')) {
-           $destinationPath = 'public/file/'; // upload path
-           $profilefile = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profilefile);
-           $insert['file'] = "$profilefile";
+        if (empty($jalur)) {
+            Flash::error('Jalur not found');
+
+            return redirect(route('jalurs.index'));
         }
 
-        $check = Document::insertGetId($insert);
-
-        return Redirect::to("file")
-        ->withSuccess('Great! file has been successfully uploaded.');
+        return view('jalurs.show')->with('jalur', $jalur);
     }
 
-    //Upload gambar
-    public function upload(Request $request){
-      if($request->hasFile('image')){
-          $resorce       = $request->file('image');
-          $name   = $resorce->getClientOriginalName();
-          $resorce->move(\base_path() ."/public/images", $name);
-          $save = DB::table('images')->insert(['image' => $name]);
-          echo "Gambar berhasil di upload";
-      }else{
-          echo "Gagal upload gambar";
-      }
-  }
+    /**
+     * Show the form for editing the specified Jalur.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+        $jalur = $this->jalurRepository->find($id);
 
+        if (empty($jalur)) {
+            Flash::error('Jalur not found');
+
+            return redirect(route('jalurs.index'));
+        }
+
+        return view('jalurs.edit')->with('jalur', $jalur);
+    }
+
+    /**
+     * Update the specified Jalur in storage.
+     *
+     * @param  int              $id
+     * @param UpdateJalurRequest $request
+     *
+     * @return Response
+     */
+    public function update($id, UpdateJalurRequest $request)
+    {
+        $jalur = $this->jalurRepository->find($id);
+
+        if (empty($jalur)) {
+            Flash::error('Jalur not found');
+
+            return redirect(route('jalurs.index'));
+        }
+
+        $jalur = $this->jalurRepository->update($request->all(), $id);
+
+        Flash::success('Jalur updated successfully.');
+
+        return redirect(route('jalurs.index'));
+    }
+
+    /**
+     * Remove the specified Jalur from storage.
+     *
+     * @param  int $id
+     *
+     * @return Response
+     */
     public function destroy($id)
     {
-        Jalur::destroy($id);
-        return redirect('jalurs');
+        $jalur = $this->jalurRepository->find($id);
+
+        if (empty($jalur)) {
+            Flash::error('Jalur not found');
+
+            return redirect(route('jalurs.index'));
+        }
+
+        $this->jalurRepository->delete($id);
+
+        Flash::success('Jalur deleted successfully.');
+
+        return redirect(route('jalurs.index'));
     }
 }

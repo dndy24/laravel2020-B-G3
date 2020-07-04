@@ -14,12 +14,15 @@ class CreateJalursTable extends Migration
     public function up()
     {
         Schema::create('jalurs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->string('nama');
             $table->string('lokasi');
             $table->string('estimasi');
             $table->string('jumlah_pos');
             $table->string('status');
+            $table->string('foto');
+            $table->string('file');
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }
