@@ -60,6 +60,8 @@ class PendakiController extends AppBaseController
         return redirect(route('pendakis.index'));
     }
 
+    
+
     /**
      * Display the specified Pendaki.
      *
@@ -148,4 +150,6 @@ class PendakiController extends AppBaseController
 
         return redirect(route('pendakis.index'));
     }
+
+
 }
