@@ -16,13 +16,14 @@
         "infyomlabs/adminlte-templates": "7.0.x-dev",
         "infyomlabs/laravel-generator": "7.0.x-dev",
         "laravel/framework": "^7.0",
+        "laravel/socialite": "^4.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "reta110/user-profile": "^1.1",
-        "yajra/laravel-datatables-oracle": "^9.10",
-        "yajra/laravel-datatables-html":"^4.4",
-        "yajra/laravel-datatables-buttons":"^4.6"
+        "yajra/laravel-datatables-buttons": "^4.6",
+        "yajra/laravel-datatables-html": "^4.4",
+        "yajra/laravel-datatables-oracle": "^9.10"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
