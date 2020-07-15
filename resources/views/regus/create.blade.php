@@ -11,7 +11,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'regus.store']) !!}
+                    {!! Form::open(['route' => 'regus.store', 'files' => true]) !!}
 
                         @include('regus.fields')
 

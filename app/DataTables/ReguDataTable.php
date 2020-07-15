@@ -67,9 +67,7 @@ class ReguDataTable extends DataTable
         return [
             'regu',
             'jumlah_anggota',
-            'jalur_id',
-            'foto',
-            'file'
+            'jalur_id'
         ];
     }
 

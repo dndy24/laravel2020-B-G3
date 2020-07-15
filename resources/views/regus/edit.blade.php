@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($regu, ['route' => ['regus.update', $regu->id], 'method' => 'patch']) !!}
+                   {!! Form::model($regu, ['route' => ['regus.update', $regu->id], 'method' => 'patch', 'files' => true]) !!}
 
-                        @include('regus.fields')
+                        @include('regus.edit_field')
 
                    {!! Form::close() !!}
                </div>
