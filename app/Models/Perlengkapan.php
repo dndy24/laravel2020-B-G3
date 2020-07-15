@@ -54,12 +54,7 @@ class Perlengkapan extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'regu_id' => 'required',
-        'navigasi' => 'required',
-        'foto' => 'required',
-        'file' => 'required'
-    ];
+    
 
     public function regu(){
 		return $this->belongsTo("App\Models\Regu", "regu_id");

@@ -67,8 +67,6 @@ class PerlengkapanDataTable extends DataTable
         return [
             'regu_id',
             'navigasi',
-            'foto',
-            'file'
         ];
     }
 

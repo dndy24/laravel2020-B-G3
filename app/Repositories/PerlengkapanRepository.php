@@ -18,9 +18,7 @@ class PerlengkapanRepository extends BaseRepository
      */
     protected $fieldSearchable = [
         'regu_id',
-        'navigasi',
-        'foto',
-        'file'
+        'navigasi'
     ];
 
     /**

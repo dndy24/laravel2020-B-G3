@@ -1,18 +1,19 @@
 <!-- Regu Id Field -->
-<div class="form-group">
+<div class="form-group col-sm-6">
     {!! Form::label('regu_id', 'Regu Id:') !!}
-    <p>{{ $perlengkapan->regu_id }}</p>
+    {!! Form::number('regu_id', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Navigasi Field -->
-<div class="form-group">
+<div class="form-group col-sm-6">
     {!! Form::label('navigasi', 'Navigasi:') !!}
-    <p>{{ $perlengkapan->navigasi }}</p>
+    {!! Form::text('navigasi', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Foto Field -->
-<div class="form-group">
+<div class="form-group col-sm-6">
     {!! Form::label('foto', 'Foto:') !!}
+    {!! Form::file('foto', null, ['class' => 'form-control']) !!}
     @if($perlengkapan->foto != NULL)
         <img src="{{ asset('storage/'. $perlengkapan->foto) }}" alt="" width="100">
     @else
@@ -21,8 +22,9 @@
 </div>
 
 <!-- File Field -->
-<div class="form-group">
+<div class="form-group col-sm-6">
     {!! Form::label('file', 'File:') !!}
+    {!! Form::file('file', null, ['class' => 'form-control']) !!}
     @if($perlengkapan->file != NULL)
         <a href="{{ asset('storage/'.$perlengkapan->file) }}" target="_blank" rel="noopener noreferrer">Lihat PDF</a>
     @else
@@ -30,10 +32,8 @@
     @endif
 </div>
 
-<div class="form-group">
-    <b>Rincian data regu : </b>
-    <ul>
-    <li><p>Nama Regu : {{ $perlengkapan->regu->regu }}</p></li>
-    <li><p>Jumlah Anggota : {{ $perlengkapan->regu->jumlah_anggota }}</p></li>
-    </ul>
+<!-- Submit Field -->
+<div class="form-group col-sm-12">
+    {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+    <a href="{{ route('perlengkapans.index') }}" class="btn btn-default">Cancel</a>
 </div>

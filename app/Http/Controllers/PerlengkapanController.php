@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PerlengkapanDataTable;
-use App\Http\Requests;
-use App\Http\Requests\CreatePerlengkapanRequest;
-use App\Http\Requests\UpdatePerlengkapanRequest;
+use Illuminate\Http\Request;
 use App\Repositories\PerlengkapanRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Storage;
 
 class PerlengkapanController extends AppBaseController
 {
@@ -49,11 +48,31 @@ class PerlengkapanController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreatePerlengkapanRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $rules = [
+            'navigasi' => 'required',
+            'foto' => 'required|mimes:jpg,jpeg,png,gif|max:500',
+            'file' => 'required|mimes:pdf|max:500'
+        ];
 
-        $perlengkapan = $this->perlengkapanRepository->create($input);
+        $message = [
+            'required' => 'Bidang :attribute tidak boleh kosong!',
+            'mimes' => 'Bidang :attribute harus berformat :values',
+            'max' => 'File yang di unggah maksimal 500KB'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $foto = $request->file('foto')->store('gambar_perlengkapan');
+        $file = $request->file('file')->store('pdf_perlengkapan');
+
+        $perlengkapan = $this->perlengkapanRepository->create([
+            'regu_id' => $request->regu_id,
+            'navigasi' => $request->navigasi,
+            'foto' => $foto,
+            'file' => $file
+        ]);
 
         Flash::success('Perlengkapan saved successfully.');
 
@@ -108,9 +127,26 @@ class PerlengkapanController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdatePerlengkapanRequest $request)
+    public function update($id, Request $request)
     {
+        $rules = [
+            'navigasi' => 'required',
+            'foto' => 'mimes:jpg,jpeg,png,gif|max:500',
+            'file' => 'mimes:pdf|max:500'
+        ];
+
+        $message = [
+            'required' => 'Bidang :attribute tidak boleh kosong!',
+            'mimes' => 'Bidang :attribute harus berformat :values',
+            'max' => 'File yang di unggah maksimal 500KB'
+        ];
+
+        $this->validate($request, $rules, $message);
+
         $perlengkapan = $this->perlengkapanRepository->find($id);
+
+        $foto = $perlengkapan->foto;
+        $file = $perlengkapan->file;
 
         if (empty($perlengkapan)) {
             Flash::error('Perlengkapan not found');
@@ -118,7 +154,28 @@ class PerlengkapanController extends AppBaseController
             return redirect(route('perlengkapans.index'));
         }
 
-        $perlengkapan = $this->perlengkapanRepository->update($request->all(), $id);
+        if($request->foto){
+            $foto = $request->file('foto')->store('gambar_perlengkapan');
+            $foto_path = $perlengkapan->foto;
+            if(Storage::exists($foto_path)){
+                Storage::delete($foto_path);
+            }
+        }
+
+        if($request->file){
+            $file = $request->file('file')->store('pdf_perlengkapan');
+            $file_path = $perlengkapan->file;
+            if(Storage::exists($file_path)){
+                Storage::delete($file_path);
+            }
+        }
+
+        $perlengkapan->update([
+            'regu_id' => $request->regu_id,
+            'navigasi' => $request->navigasi,
+            'foto' => $foto,
+            'file' => $file
+        ]);
 
         Flash::success('Perlengkapan updated successfully.');
 
@@ -140,6 +197,17 @@ class PerlengkapanController extends AppBaseController
             Flash::error('Perlengkapan not found');
 
             return redirect(route('perlengkapans.index'));
+        }
+
+        $foto = $perlengkapan->foto;
+        $file = $perlengkapan->file;
+
+        if(Storage::exists($foto)){
+            Storage::delete($foto);
+        }
+
+        if(Storage::exists($file)){
+            Storage::delete($file);
         }
 
         $this->perlengkapanRepository->delete($id);

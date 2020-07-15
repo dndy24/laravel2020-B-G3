@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($perlengkapan, ['route' => ['perlengkapans.update', $perlengkapan->id], 'method' => 'patch']) !!}
+                   {!! Form::model($perlengkapan, ['route' => ['perlengkapans.update', $perlengkapan->id], 'method' => 'patch', 'files' => true]) !!}
 
-                        @include('perlengkapans.fields')
+                        @include('perlengkapans.edit_field')
 
                    {!! Form::close() !!}
                </div>
