@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($pendaki, ['route' => ['pendakis.update', $pendaki->id], 'method' => 'patch']) !!}
+                   {!! Form::model($pendaki, ['route' => ['pendakis.update', $pendaki->id], 'method' => 'patch', 'files' => true]) !!}
 
-                        @include('pendakis.fields')
+                        @include('pendakis.edit_field')
 
                    {!! Form::close() !!}
                </div>

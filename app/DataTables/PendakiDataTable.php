@@ -76,8 +76,6 @@ class PendakiDataTable extends DataTable
             'alamat',
             'regu_id',
             'tanggal_mendaki',
-            'foto',
-            'file'
         ];
     }
 

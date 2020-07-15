@@ -11,7 +11,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'pendakis.store']) !!}
+                    {!! Form::open(['route' => 'pendakis.store', 'files' => true]) !!}
 
                         @include('pendakis.fields')
 

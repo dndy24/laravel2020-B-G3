@@ -25,12 +25,20 @@
 <!-- Foto Field -->
 <div class="form-group">
     {!! Form::label('foto', 'Foto:') !!}
-    <p>{{ $pendaki->foto }}</p>
+    @if($pendaki->foto != NULL)
+    <img src="{{ asset('storage/'.$pendaki->foto) }}" alt="" width="100">
+    @else
+    <p>Tidak ada Foto</p>
+    @endif
 </div>
 
 <!-- File Field -->
 <div class="form-group">
     {!! Form::label('file', 'File:') !!}
-    <p>{{ $pendaki->file }}</p>
+    @if($pendaki->file != NULL)
+    <a href="{{ asset('storage/'.$pendaki->file) }}" target="_blank" rel="noopener noreferrer">Lihat PDF</a>
+    @else
+    <p>Tidak ada PDF</p>
+    @endif
 </div>
 

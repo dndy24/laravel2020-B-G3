@@ -27,6 +27,7 @@
 -   Isi nama database
 -   Kembali ke cmd lalu ketik php artisan key:generate
 -   Lalu ketik kembali php artisan migrate --seed
+-   Lalu ketik kembali php artisan storage:link
 -   Untuk menjalankan ketik php artisan serve
 
 ### UPDATE :
