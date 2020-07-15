@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
 
-class LoginController extends Controller
+class Auth extends Controller
 {
     /**
      * Redirect the user to the GitHub authentication page.

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\JalurDataTable;
-use App\Http\Requests;
-use App\Http\Requests\CreateJalurRequest;
-use App\Http\Requests\UpdateJalurRequest;
+use Illuminate\Http\Request;
 use App\Repositories\JalurRepository;
 use Flash;
 use App\Http\Controllers\AppBaseController;
 use Response;
+use Storage;
 
 class JalurController extends AppBaseController
 {
@@ -49,15 +48,44 @@ class JalurController extends AppBaseController
      *
      * @return Response
      */
-    public function store(CreateJalurRequest $request)
+    public function store(Request $request)
     {
-        $input = $request->all();
+        $rules = [
+            'nama' => 'required',
+            'lokasi' => 'required',
+            'estimasi' => 'required',
+            'jumlah_pos' => 'required',
+            'status' => 'required',
+            'foto' => 'required|mimes:jpg,jpeg,gif,png|max:500',
+            'file' => 'required|mimes:pdf|max:500'
+        ];
 
-        $jalur = $this->jalurRepository->create($input);
+        $message = [
+            'required' => 'Bidang :attribute tidak boleh kosong!',
+            'mimes' => 'Bidang :attribute harus :values',
+            'max' => 'File yang diunggah maksimal 500KB'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $foto = $request->file('foto')->store('gambar_jalur');
+        $file = $request->file('file')->store('pdf_jalur');
+
+        $jalur = $this->jalurRepository->create([
+            'nama' => $request->nama,
+            'lokasi' => $request->lokasi,
+            'estimasi' => $request->estimasi,
+            'jumlah_pos' => $request->jumlah_pos,
+            'status' => $request->status,
+            'foto' => $foto,
+            'file'=> $file
+        ]);
 
         Flash::success('Jalur saved successfully.');
 
         return redirect(route('jalurs.index'));
+
+        
     }
 
     /**
@@ -108,17 +136,61 @@ class JalurController extends AppBaseController
      *
      * @return Response
      */
-    public function update($id, UpdateJalurRequest $request)
+    public function update($id, Request $request)
     {
         $jalur = $this->jalurRepository->find($id);
 
         if (empty($jalur)) {
             Flash::error('Jalur not found');
-
             return redirect(route('jalurs.index'));
         }
 
-        $jalur = $this->jalurRepository->update($request->all(), $id);
+        $rules = [
+            'nama' => 'required',
+            'lokasi' => 'required',
+            'estimasi' => 'required',
+            'jumlah_pos' => 'required',
+            'status' => 'required',
+            'foto' => 'mimes:jpg,jpeg,gif,png|max:500',
+            'file' => 'mimes:pdf|max:500'
+        ];
+
+        $message = [
+            'required' => 'Bidang :attribute tidak boleh kosong!',
+            'mimes' => 'Bidang :attribute harus :values',
+            'max' => 'File yang diunggah maksimal 500KB'
+        ];
+
+        $this->validate($request, $rules, $message);
+
+        $foto = $jalur->foto;
+        $file = $jalur->file;
+
+        if($request->foto){
+            $foto = $request->file('foto')->store('gambar_jalur');
+            $foto_path = $jalur->foto;
+            if(Storage::exists($foto_path)){
+                Storage::delete($foto_path);
+            }
+        }
+
+        if($request->file){
+            $file = $request->file('file')->store('pdf_jalur');
+            $file_path = $jalur->file;
+            if(Storage::exists($file_path)){
+                Storage::delete($file_path);
+            }
+        }
+
+        $jalur->update([
+            'nama' => $request->nama,
+            'lokasi' => $request->lokasi,
+            'estimasi' => $request->estimasi,
+            'jumlah_pos' => $request->jumlah_pos,
+            'status' => $request->status,
+            'foto' => $foto,
+            'file'=> $file
+        ]);
 
         Flash::success('Jalur updated successfully.');
 
@@ -140,6 +212,17 @@ class JalurController extends AppBaseController
             Flash::error('Jalur not found');
 
             return redirect(route('jalurs.index'));
+        }
+
+        $foto = $jalur->foto;
+        $file = $jalur->file;
+
+        if(Storage::exists($foto)){
+            Storage::delete($foto);
+        }
+
+        if(Storage::exists($file)){
+            Storage::delete($file);
         }
 
         $this->jalurRepository->delete($id);

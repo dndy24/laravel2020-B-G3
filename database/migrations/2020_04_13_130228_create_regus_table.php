@@ -18,8 +18,8 @@ class CreateRegusTable extends Migration
             $table->string('regu');
             $table->string('jumlah_anggota');
             $table->string('jalur_id')->nullable();
-            $table->string('foto');
-            $table->string('file');
+            $table->string('foto')->nullable();
+            $table->string('file')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

@@ -20,8 +20,8 @@ class CreateJalursTable extends Migration
             $table->string('estimasi');
             $table->string('jumlah_pos');
             $table->string('status');
-            $table->string('foto');
-            $table->string('file');
+            $table->string('foto')->nullable();
+            $table->string('file')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

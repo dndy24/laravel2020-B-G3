@@ -19,8 +19,8 @@ class CreatePendakiansTable extends Migration
             $table->text('alamat');
             $table->string('regu_id')->nullable();
             $table->date('tanggal_mendaki');
-            $table->string('foto');
-            $table->string('file');
+            $table->string('foto')->nullable();
+            $table->string('file')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

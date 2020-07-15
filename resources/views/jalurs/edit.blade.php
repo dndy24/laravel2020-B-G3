@@ -11,9 +11,9 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
-                   {!! Form::model($jalur, ['route' => ['jalurs.update', $jalur->id], 'method' => 'patch']) !!}
+                   {!! Form::model($jalur, ['route' => ['jalurs.update', $jalur->id], 'method' => 'patch', 'files' => true]) !!}
 
-                        @include('jalurs.fields')
+                        @include('jalurs.edit_field')
 
                    {!! Form::close() !!}
                </div>

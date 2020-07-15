@@ -31,12 +31,20 @@
 <!-- Foto Field -->
 <div class="form-group">
     {!! Form::label('foto', 'Foto:') !!}
-    <p>{{ $jalur->foto }}</p>
+    @if($jalur->foto != NULL)
+    <img src="{{ asset('storage/'. $jalur->foto) }}" alt="" width="200">
+    @else
+    <p>Tidak ada foto!</p>
+    @endif
 </div>
 
 <!-- File Field -->
 <div class="form-group">
     {!! Form::label('file', 'File:') !!}
-    <p>{{ $jalur->file }}</p>
+    @if($jalur->file != NULL)
+    <a href="{{ asset('storage/'. $jalur->file) }}" target="_blank" rel="noopener noreferrer">Lihat PDF</a>
+    @else
+    <p>Tidak ada foto!</p>
+    @endif
 </div>
 

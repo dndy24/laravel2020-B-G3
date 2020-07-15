@@ -70,8 +70,6 @@ class JalurDataTable extends DataTable
             'estimasi',
             'jumlah_pos',
             'status',
-            'foto',
-            'file'
         ];
     }
 

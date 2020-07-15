@@ -22,8 +22,6 @@ class PendakianSeeder extends Seeder
 				'alamat' => $faker->address,
 				'regu_id' => $angka++,
 				'tanggal_mendaki' => $faker->date,
-				'foto' => 'storage/app/public/photo/puffin.jpg',
-                'file' => 'storage/app/public/pdf/dummy.pdf',
 				'created_at' => now(),
 				'updated_at' => now()
         ]);

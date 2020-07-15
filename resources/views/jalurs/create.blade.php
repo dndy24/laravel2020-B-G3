@@ -11,7 +11,7 @@
         <div class="box box-primary">
             <div class="box-body">
                 <div class="row">
-                    {!! Form::open(['route' => 'jalurs.store']) !!}
+                    {!! Form::open(['route' => 'jalurs.store', 'files' => true]) !!}
 
                         @include('jalurs.fields')
 

@@ -23,8 +23,6 @@ class JalurSeeder extends Seeder
     			'estimasi' => $faker->numberBetween(8,12).' jam',
     			'jumlah_pos' => $faker->numberBetween(6,10),
     			'status' => $faker->randomElement($status),
-				'foto' => 'storage/app/public/photo/puffin.jpg',
-                'file' => 'storage/app/public/pdf/dummy.pdf',
                 'created_at' => now(),
                 'updated_at' => now()
     		]);

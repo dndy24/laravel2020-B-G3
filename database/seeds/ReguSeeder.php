@@ -22,8 +22,6 @@ class ReguSeeder extends Seeder
     			'regu' => $faker->randomElement($regu),
     			'jumlah_anggota' => $faker->numberBetween(1,25),
                 'jalur_id' => $angka++,
-				'foto' => 'storage/app/public/photo/puffin.jpg',
-                'file' => 'storage/app/public/pdf/dummy.pdf',
                 'created_at' => now(),
                 'updated_at' => now()
     		]);

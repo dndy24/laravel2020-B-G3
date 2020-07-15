@@ -63,15 +63,6 @@ class Jalur extends Model
      *
      * @var array
      */
-    public static $rules = [
-        'nama' => 'required',
-        'lokasi' => 'required',
-        'estimasi' => 'required',
-        'jumlah_pos' => 'required',
-        'status' => 'required',
-        'foto' => 'required',
-        'file' => 'required'
-    ];
-
+    
     
 }

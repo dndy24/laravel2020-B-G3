@@ -23,8 +23,8 @@ class CreateJalurRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return Jalur::$rules;
-    }
+    // public function rules()
+    // {
+    //     return Jalur::$rules_add;
+    // }
 }

@@ -106,4 +106,9 @@ class LoginController extends Controller
 
         return redirect('/home');
     }
+
+    public function showLoginForm(){
+        return view('auth.login');
+    }
+    
 }

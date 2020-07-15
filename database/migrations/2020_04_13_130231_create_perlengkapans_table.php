@@ -17,8 +17,8 @@ class CreatePerlengkapansTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('regu_id')->nullable();
             $table->string('navigasi');
-            $table->string('foto');
-            $table->string('file');
+            $table->string('foto')->nullable();
+            $table->string('file')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

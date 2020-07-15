@@ -21,8 +21,6 @@ class PerlengkapanSeeder extends Seeder
     		DB::table('perlengkapans')->insert([
     			'regu_id' => $angka++,
                 'navigasi' => $faker->randomElement($cek),
-				'foto' => 'storage/app/public/photo/puffin.jpg',
-                'file' => 'storage/app/public/pdf/dummy.pdf',
                 'created_at' => now(),
                 'updated_at' => now()
     		]);
