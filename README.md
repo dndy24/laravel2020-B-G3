@@ -19,7 +19,6 @@
 
 ## CARA INSTALL
 
-### Windows
 - Klik Clone or Download silahkan download zip
 - Pindah kedalam folder /xampp/htdocs dan extrak 
 - Ketikan " composer install "
@@ -38,7 +37,4 @@
  
 #### PASTIKAN EMAIL YANG DIGUNAKAN SUDAH DI SETTING UNTUK SMTP!
 
-### KURANG
-1. Upload file & foto
-
-2. Bilingual
+-bug fixed
