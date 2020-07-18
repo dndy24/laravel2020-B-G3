@@ -28,9 +28,9 @@ Route::group(['middleware' => 'guest'], function() {
 
     Route::get('/sign-in/github/redirect','Auth\LoginController@githubRedirect');
 
-    Route::get('/sign-in/facebook','Auth\LoginController@facebook');
+    // Route::get('/sign-in/facebook','Auth\LoginController@facebook');
 
-    Route::get('/sign-in/facebook/redirect','Auth\LoginController@facebookRedirect');
+    // Route::get('/sign-in/facebook/redirect','Auth\LoginController@facebookRedirect');
 
     Route::get('/sign-in/twitter','Auth\LoginController@twitter');
 

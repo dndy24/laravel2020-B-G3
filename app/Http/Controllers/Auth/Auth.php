@@ -26,9 +26,9 @@ class Auth extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('github')->user();
-        $user = Socialite::driver('facebook')->user();
-        $user = Socialite::driver('twitter')->user();
+        $user = Socialite::driver('github')->stateless()->user();
+        $user = Socialite::driver('facebook')->stateless()->user();
+        $user = Socialite::driver('twitter')->stateless()->user();
 
         // $user->token;
     }

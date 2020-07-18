@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use Str;
 use App\User;
+use Exception;
 
 class LoginController extends Controller
 {
@@ -51,40 +52,52 @@ class LoginController extends Controller
 
     public function githubRedirect()
     {
-        $user = Socialite::driver('github')->user();
+        try{
+            $user = Socialite::driver('github')->stateless()->user();
+            $finduser = User::where('email', $user->email)->first();
 
-        $user = User::firstOrCreate([
-            'name' => $user->name
-        ], [
-            'email' => $user->email,
-            'password' => Hash::make('dummy')
-        ]);
+            if($finduser){
+                Auth::login($finduser);
+                return redirect('/home');
+            }
+            else{
+                $user = User::firstOrCreate([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'password' => Hash::make('dummy')
+                ]);
 
-        Auth::login($user, true);
+                $user->markEmailAsVerified();
+            }
 
-        return redirect('/home');
+            Auth::login($user, true);
+            return redirect('/home');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
-    public function facebook()
-    {
-        return Socialite::driver('facebook')->redirect();
-    }
+    // public function facebook()
+    // {
+    //     return Socialite::driver('facebook')->redirect();
+    // }
 
-    public function facebookRedirect()
-    {
-        $user = Socialite::driver('facebook')->user();
+    // public function facebookRedirect()
+    // {
+    //     $user = Socialite::driver('facebook')->stateless()->user();
 
-        $user = User::firstOrCreate([
-            'name' => $user->name
-        ], [
-            'email' => $user->email,
-            'password' => Hash::make('dummy')
-        ]);
+    //     $user = User::firstOrCreate([
+    //         'name' => $user->name
+    //     ], [
+    //         'email' => $user->email,
+    //         'password' => Hash::make('dummy'),
+    //         'email_verified_at' => now()
+    //     ]);
 
-        Auth::login($user, true);
+    //     Auth::login($user, true);
 
-        return redirect('/home');
-    }
+    //     return redirect('/home');
+    // }
 
     public function twitter()
     {
@@ -93,18 +106,30 @@ class LoginController extends Controller
 
     public function twitterRedirect()
     {
-        $user = Socialite::driver('twitter')->user();
+        try {
+            $user = Socialite::driver('twitter')->user();
+            $finduser = User::where('email', $user->email)->first();
+            
+            if($finduser){
+                Auth::login($finduser);
+                return redirect('/home');
+            } 
+            else{
+                $user = User::firstOrCreate([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'password' => Hash::make('dummy')
+                ]);
 
-        $user = User::firstOrCreate([
-            'name' => $user->name
-        ], [
-            'email' => $user->email,
-            'password' => Hash::make('dummy')
-        ]);
+                $user->markEmailAsVerified();
+            }
 
-        Auth::login($user, true);
+            Auth::login($user, true);
+            return redirect('/home');
 
-        return redirect('/home');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     public function showLoginForm(){
